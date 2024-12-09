@@ -29,10 +29,10 @@ class DQN_CNN_FIXED(nn.Module):
         img1 = cv2.cvtColor(cv2.resize(img1, (50, 50)), cv2.COLOR_BGR2GRAY)
         img2 = cv2.cvtColor(cv2.resize(img2, (50, 50)), cv2.COLOR_BGR2GRAY)
 
-        img1 = torch.tensor(img1, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
-        img2 = torch.tensor(img2, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
+        img1 = torch.tensor(img1, dtype=torch.float32)
+        img2 = torch.tensor(img2, dtype=torch.float32)
         with torch.no_grad():
-            state = torch.zeros_like(img1)  
+            state = torch.zeros_like(img1).unsqueeze(0).unsqueeze(0)
             Q_values = self(state)
             action = torch.argmax(Q_values).item()
 
